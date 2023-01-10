@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:lbooks_app/screens/welcome_screen.dart';
+import 'package:lbooks_app/screens/splash_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       title: 'Flutter Demo',
+      theme: ThemeData(
+        primaryColor: Colors.amber,
+      ),
       debugShowCheckedModeBanner: false,
-      home: Welcome_screen(),
+      home: const SplashScreen(),
     );
   }
 }
