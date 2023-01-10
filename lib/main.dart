@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lbooks_app/screens/welcome_screen.dart';
 
 void main() {
