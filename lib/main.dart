@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      home: Welcome_screen(),
+      title: 'Book reading',
+      // debugShowCheckedModeBanner: false,
+      home: WelcomeScreen(),
     );
   }
 }
