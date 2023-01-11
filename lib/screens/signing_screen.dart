@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lbooks_app/screens/screens.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -42,8 +43,24 @@ class SignInScreen extends StatelessWidget {
                 ),
                 child: TextFormField(
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () async {
+                        final picker = ImagePicker();
+                        final XFile? pickedFile = await picker.pickImage(
+                          source: ImageSource.camera,
+                          imageQuality: 100,
+                        );
+                        if (pickedFile == null) {
+                          print('No hay imagen seleccionada');
+                          return;
+                        }
+                      },
+                      icon: const Icon(
+                        Icons.photo,
+                        color: Color(0xffFAC54C),
+                      ),
+                    ),
                     hintText: ' usuario@gmail.com',
                   ),
                 ),

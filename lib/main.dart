@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lbooks_app/screens/screens.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    // final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       title: 'Book reading',
       initialRoute: SplashScreen.route,
