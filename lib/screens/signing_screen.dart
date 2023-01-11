@@ -8,9 +8,9 @@ class SignInScreen extends StatelessWidget {
   static const String route = 'sign';
 
   const SignInScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    String path = '';
     var textStyle =
         TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.45));
     return Scaffold(
@@ -51,10 +51,8 @@ class SignInScreen extends StatelessWidget {
                           source: ImageSource.camera,
                           imageQuality: 100,
                         );
-                        if (pickedFile == null) {
-                          print('No hay imagen seleccionada');
-                          return;
-                        }
+                        if (pickedFile == null) return;
+                        path = pickedFile.path;
                       },
                       icon: const Icon(
                         Icons.photo,
@@ -102,7 +100,8 @@ class SignInScreen extends StatelessWidget {
                     ),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, HomeScreen.route);
+                    Navigator.pushReplacementNamed(context, HomeScreen.route,
+                        arguments: path);
                   },
                   child: Text(
                     'Registrarme',
