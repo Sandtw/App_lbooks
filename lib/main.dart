@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lbooks_app/screens/splash_screen.dart';
+import 'package:lbooks_app/screens/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.amber,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      title: 'Book reading',
+      initialRoute: WelcomeScreen.route,
+      routes: {
+        WelcomeScreen.route: (_) => const WelcomeScreen(),
+        LoginScreen.route: (_) => const LoginScreen(),
+        SignInScreen.route: (_) => const SignInScreen(),
+        HomeScreen.route: (_) => const HomeScreen(),
+      },
     );
   }
 }
