@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lbooks_app/screens/screens.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  static const String route = 'welcome';
   const WelcomeScreen({super.key});
 
   @override
@@ -26,16 +28,14 @@ class WelcomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ClipOval(
-                    child: Container(
-                      child: Image.asset(
-                        'assets/icon/icon.png',
-                        width: 180,
-                        height: 180,
-                        fit: BoxFit.cover,
-                      ),
+                    child: Image.asset(
+                      'assets/icon/icon.png',
+                      width: 180,
+                      height: 180,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
@@ -53,7 +53,37 @@ class WelcomeScreen extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold)),
-                  SizedBox(
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    width: 350,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 209, 211, 47),
+                          Color.fromARGB(221, 152, 114, 10),
+                        ],
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, LoginScreen.route);
+                      },
+                      child: Text(
+                        'Iniciar Sesión',
+                        style: GoogleFonts.libreBaskerville(
+                          color: const Color.fromARGB(255, 19, 22, 52),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
                     height: 30,
                   ),
                   Container(
@@ -61,7 +91,7 @@ class WelcomeScreen extends StatelessWidget {
                       height: 70,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           colors: [
                             Color.fromARGB(255, 209, 211, 47),
                             Color.fromARGB(221, 152, 114, 10),
@@ -69,37 +99,14 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                       child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Iniciar Sesión',
-                          style: GoogleFonts.libreBaskerville(
-                            color: Color.fromARGB(255, 19, 22, 52),
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                      width: 350,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 209, 211, 47),
-                            Color.fromARGB(221, 152, 114, 10),
-                          ],
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, SignInScreen.route);
+                        },
                         child: Text(
                           'Registrarse',
                           style: GoogleFonts.libreBaskerville(
-                            color: Color.fromARGB(255, 19, 22, 52),
+                            color: const Color.fromARGB(255, 19, 22, 52),
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                           ),

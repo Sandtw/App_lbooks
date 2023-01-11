@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:lbooks_app/screens/welcome_screen.dart';
+import 'package:lbooks_app/screens/screens.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       title: 'Book reading',
-      // debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      initialRoute: WelcomeScreen.route,
+      routes: {
+        WelcomeScreen.route: (_) => const WelcomeScreen(),
+        LoginScreen.route: (_) => const LoginScreen(),
+        SignInScreen.route: (_) => const SignInScreen(),
+        HomeScreen.route: (_) => const HomeScreen(),
+      },
     );
   }
 }
