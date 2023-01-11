@@ -12,8 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Book reading',
-      initialRoute: WelcomeScreen.route,
+      initialRoute: SplashScreen.route,
+      debugShowCheckedModeBanner: false,
       routes: {
+        SplashScreen.route: (_) => const SplashScreen(),
         WelcomeScreen.route: (_) => const WelcomeScreen(),
         LoginScreen.route: (_) => const LoginScreen(),
         SignInScreen.route: (_) => const SignInScreen(),

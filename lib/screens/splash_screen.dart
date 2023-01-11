@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lbooks_app/screens/welcome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const String route = 'Splash';
+
   const SplashScreen({super.key});
 
   @override

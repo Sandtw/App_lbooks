@@ -87,31 +87,32 @@ class WelcomeScreen extends StatelessWidget {
                     height: 30,
                   ),
                   Container(
-                      width: 350,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 209, 211, 47),
-                            Color.fromARGB(221, 152, 114, 10),
-                          ],
+                    width: 350,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 209, 211, 47),
+                          Color.fromARGB(221, 152, 114, 10),
+                        ],
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, SignInScreen.route);
+                      },
+                      child: Text(
+                        'Registrarse',
+                        style: GoogleFonts.libreBaskerville(
+                          color: const Color.fromARGB(255, 19, 22, 52),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, SignInScreen.route);
-                        },
-                        child: Text(
-                          'Registrarse',
-                          style: GoogleFonts.libreBaskerville(
-                            color: const Color.fromARGB(255, 19, 22, 52),
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )),
+                    ),
+                  ),
                 ],
               ),
             )
