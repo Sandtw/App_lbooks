@@ -11,16 +11,17 @@ class DetailsScreen extends StatelessWidget {
     //? Le dice a dart que lo trate como un Book
     final Book book = ModalRoute.of(context)!.settings.arguments as Book;
     return Scaffold(
+        backgroundColor: const Color(0xffD9D9D9),
         body: CustomScrollView(
-      slivers: [
-        _CustomAppBar(book: book),
-        SliverList(
-            delegate: SliverChildListDelegate([
-          _PosterAndTtitle(book: book),
-          _Overview(book: book),
-        ])),
-      ],
-    ));
+          slivers: [
+            _CustomAppBar(book: book),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              _PosterAndTtitle(book: book),
+              _Overview(book: book),
+            ])),
+          ],
+        ));
   }
 }
 
