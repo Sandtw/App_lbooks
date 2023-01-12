@@ -30,15 +30,16 @@ class _BookSliderState extends State<BookSlider> {
               ),
             ),
           const SizedBox(
-            height: 5,
+            height: 12,
           ),
           Expanded(
             child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: widget.books!.length,
-                itemBuilder: (_, int index) {
-                  return _BookPoster(book: widget.books![index]);
-                }),
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.books!.length,
+              itemBuilder: (_, int index) {
+                return _BookPoster(book: widget.books![index]);
+              },
+            ),
           )
         ],
       ),
@@ -57,30 +58,33 @@ class _BookPoster extends StatelessWidget {
       width: 130,
       height: 190,
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(children: [
-        GestureDetector(
-          onTap: () => Navigator.pushNamed(context, 'details', arguments: book),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/imgs/no-image.jpg'),
-              image: NetworkImage(book!.volumeInfo!.imageLinks!.thumbnail!),
-              width: 130,
-              height: 185,
-              fit: BoxFit.cover,
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () =>
+                Navigator.pushNamed(context, 'details', arguments: book),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/imgs/no-image.jpg'),
+                image: NetworkImage(book!.volumeInfo!.imageLinks!.thumbnail!),
+                width: 130,
+                height: 185,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(
-          book!.volumeInfo!.title!,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-        )
-      ]),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            book!.volumeInfo!.title!,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
 }
