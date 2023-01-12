@@ -17,7 +17,7 @@ class VolumeCategoryResponse {
     factory VolumeCategoryResponse.fromMap(Map<String, dynamic> json) => VolumeCategoryResponse(
         kind: json["kind"],
         totalBooks: json["totalBooks"],
-        books: json["Books"] == null ? [] : List<Book?>.from(json["Books"]!.map((x) => Book.fromMap(x))),
+        books: json["items"] == null ? [] : List<Book?>.from(json["items"]!.map((x) => Book.fromMap(x))),
     );
 
 

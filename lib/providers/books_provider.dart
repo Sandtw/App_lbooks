@@ -2,11 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lbooks_app/models/models.dart';
-import 'package:provider/provider.dart';
 
-class BooksProvider extends ChangeNotifier{
+class BooksProvider extends ChangeNotifier {
   final String _apiKey = 'AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA';
-  final String _baseUrl = 'https://www.googleapis.com/books/v1/volumes';
+  final String _baseUrl = 'www.googleapis.com';
   final String _q = 'subject:';
   final String _download = 'epub';
   final String _orderBy = 'newest';
@@ -16,41 +15,61 @@ class BooksProvider extends ChangeNotifier{
   List<Book?>? horrorBooks = [];
   List<Book?>? healthBooks = [];
 
-  
-   MoviesProvider(){
-      getPopularBooks();
+  BooksProvider() {
+    getThrilerBooks();
+    getFantasyBooks();
+    getHorrorBooks();
+    getHealthBooks();
   }
 
-   Future<String> _getJsonData(String category) async{
-      final url = Uri.https(_baseUrl, '', {
-        'q': _q+category,
-        'download': _download,
-        'orderBy': _orderBy,
-        'key': _apiKey,
-      });
+  Future<String> _getJsonData(String category, [int maxResults = 15]) async {
+    final url = Uri.https(_baseUrl, '/books/v1/volumes', {
+      'q': _q + category,
+      'download': _download,
+      'orderBy': _orderBy,
+      'key': _apiKey,
+      'maxResults': '$maxResults'
+    });
 
-      final response = await http.get(url);
-      return response.body;
+    final response = await http.get(url);
+    return response.body;
   }
 
-    getPopularBooks() async {
+  getThrilerBooks() async {
     final jsonDataThriller = await this._getJsonData('thriller');
-    final jsonDataFantasy = await this._getJsonData('fantasy');
-    final jsonDataHorror = await this._getJsonData('horror');
-    final jsonDataHealth = await this._getJsonData('health');
 
     final thrillerResponse = VolumeCategoryResponse.fromJson(jsonDataThriller);
+
+    thrillerBooks = thrillerResponse.books;
+
+    notifyListeners();
+  }
+
+  getFantasyBooks() async {
+    final jsonDataFantasy = await this._getJsonData('fantasy');
+
     final fantasyResponse = VolumeCategoryResponse.fromJson(jsonDataFantasy);
+
+    fantasyBooks = fantasyResponse.books;
+
+    notifyListeners();
+  }
+
+  getHorrorBooks() async {
+    final jsonDataHorror = await this._getJsonData('horror');
+
     final horrorResponse = VolumeCategoryResponse.fromJson(jsonDataHorror);
+
+    horrorBooks = horrorResponse.books;
+    notifyListeners();
+  }
+
+  getHealthBooks() async {
+    final jsonDataHealth = await this._getJsonData('health');
+
     final healthResponse = VolumeCategoryResponse.fromJson(jsonDataHealth);
 
-
-    // Listado de películas populares List<Movie>, quiero de todas las pages en una sola lista
-    thrillerBooks = thrillerResponse.books;
-    fantasyBooks = fantasyResponse.books;
-    horrorBooks = horrorResponse.books;
     healthBooks = healthResponse.books;
-
     notifyListeners();
   }
 }

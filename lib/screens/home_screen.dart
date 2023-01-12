@@ -25,8 +25,10 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-              // Slider de libros
-              BookSlider(books: booksProvider.thrillerBooks,  title: 'Populares Thriller')
+              BookSlider(books: booksProvider.thrillerBooks,  title: 'Libros Populares de Terror'),
+              BookSlider(books: booksProvider.fantasyBooks,  title: 'Libros Populares de Fantasía'),
+              BookSlider(books: booksProvider.horrorBooks,  title: 'Libros Populares de Horror'),
+              BookSlider(books: booksProvider.healthBooks,  title: 'Libros Populares de Salud')
           ],
         ),
       )
