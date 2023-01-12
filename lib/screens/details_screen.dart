@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lbooks_app/models/models.dart';
-import 'package:lbooks_app/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const String route = 'details';
@@ -8,26 +7,20 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //? El argumento es un objeto, tengo que especificarle que tipo de objeto es
     //? Le dice a dart que lo trate como un Book
     final Book book = ModalRoute.of(context)!.settings.arguments as Book;
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _CustomAppBar(book: book),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                _PosterAndTtitle(book: book),
-                _Overview(book: book),
-              ]
-            )
-          ),
-
-        ],
-      )
-    );
+        body: CustomScrollView(
+      slivers: [
+        _CustomAppBar(book: book),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          _PosterAndTtitle(book: book),
+          _Overview(book: book),
+        ])),
+      ],
+    ));
   }
 }
 
@@ -49,13 +42,14 @@ class _CustomAppBar extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
-          child:  Text(book.volumeInfo!.title!,
-                      style: const TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                  ),
+          child: Text(
+            book.volumeInfo!.title!,
+            style: const TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
           ),
-        background:  FadeInImage(
-          placeholder: const AssetImage('assets/imgs/loading.gif'), 
+        ),
+        background: FadeInImage(
+          placeholder: const AssetImage('assets/imgs/loading.gif'),
           image: NetworkImage(book.volumeInfo!.imageLinks!.smallThumbnail!),
           fit: BoxFit.cover,
         ),
@@ -76,37 +70,58 @@ class _PosterAndTtitle extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/imgs/no-image.jpg'),
-              image: NetworkImage(book.volumeInfo!.imageLinks!.thumbnail!),
-              height: 150,
-              width: 110,
-            ),
+      child: Row(children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: FadeInImage(
+            placeholder: const AssetImage('assets/imgs/no-image.jpg'),
+            image: NetworkImage(book.volumeInfo!.imageLinks!.thumbnail!),
+            height: 150,
+            width: 110,
           ),
-          const SizedBox(width: 20,),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: size.width - 190),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(book.volumeInfo!.title!, style: textTheme.headline5, overflow: TextOverflow.ellipsis, maxLines: 2,),
-                Text('por ' + book.volumeInfo!.authors!.join(", "), style: textTheme.subtitle1, overflow: TextOverflow.ellipsis, maxLines: 2,),
-                Row(
-                  children: [
-                    const Icon(Icons.star_outline, size: 15, color: Colors.grey,),
-                    const SizedBox(width: 5,),
-                    Text(book.volumeInfo!.averageRating == 0 ? 'No disponible' : '${book.volumeInfo!.averageRating}', style: textTheme.caption,)
-                  ],
-                )
-              ],
-            ),
-          )
-        ]
-      ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: size.width - 190),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                book.volumeInfo!.title!,
+                style: textTheme.headline5,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              Text(
+                'por ${book.volumeInfo!.authors!.join(", ")}',
+                style: textTheme.subtitle1,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.star_outline,
+                    size: 15,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    book.volumeInfo!.averageRating == 0
+                        ? 'No disponible'
+                        : '${book.volumeInfo!.averageRating}',
+                    style: textTheme.caption,
+                  )
+                ],
+              )
+            ],
+          ),
+        )
+      ]),
     );
   }
 }

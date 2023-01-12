@@ -36,7 +36,7 @@ class BooksProvider extends ChangeNotifier {
   }
 
   getThrilerBooks() async {
-    final jsonDataThriller = await this._getJsonData('thriller');
+    final jsonDataThriller = await _getJsonData('thriller');
 
     final thrillerResponse = VolumeCategoryResponse.fromJson(jsonDataThriller);
 
@@ -46,7 +46,7 @@ class BooksProvider extends ChangeNotifier {
   }
 
   getFantasyBooks() async {
-    final jsonDataFantasy = await this._getJsonData('fantasy');
+    final jsonDataFantasy = await _getJsonData('fantasy');
 
     final fantasyResponse = VolumeCategoryResponse.fromJson(jsonDataFantasy);
 
@@ -56,7 +56,7 @@ class BooksProvider extends ChangeNotifier {
   }
 
   getHorrorBooks() async {
-    final jsonDataHorror = await this._getJsonData('horror');
+    final jsonDataHorror = await _getJsonData('horror');
 
     final horrorResponse = VolumeCategoryResponse.fromJson(jsonDataHorror);
 
@@ -65,7 +65,7 @@ class BooksProvider extends ChangeNotifier {
   }
 
   getHealthBooks() async {
-    final jsonDataHealth = await this._getJsonData('health');
+    final jsonDataHealth = await _getJsonData('health');
 
     final healthResponse = VolumeCategoryResponse.fromJson(jsonDataHealth);
 
