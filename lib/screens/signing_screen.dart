@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lbooks_app/screens/screens.dart';
 
 class SignInScreen extends StatelessWidget {
   static const String route = 'sign';
 
   const SignInScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    String path = '';
     var textStyle =
         TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.45));
     return Scaffold(
@@ -42,8 +43,22 @@ class SignInScreen extends StatelessWidget {
                 ),
                 child: TextFormField(
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () async {
+                        final picker = ImagePicker();
+                        final XFile? pickedFile = await picker.pickImage(
+                          source: ImageSource.camera,
+                          imageQuality: 100,
+                        );
+                        if (pickedFile == null) return;
+                        path = pickedFile.path;
+                      },
+                      icon: const Icon(
+                        Icons.photo,
+                        color: Color(0xffFAC54C),
+                      ),
+                    ),
                     hintText: ' usuario@gmail.com',
                   ),
                 ),
@@ -85,7 +100,8 @@ class SignInScreen extends StatelessWidget {
                     ),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, HomeScreen.route);
+                    Navigator.pushReplacementNamed(context, HomeScreen.route,
+                        arguments: path);
                   },
                   child: Text(
                     'Registrarme',
