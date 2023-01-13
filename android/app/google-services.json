@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "155678999942",
-    "project_id": "dartlogin-38508",
-    "storage_bucket": "dartlogin-38508.appspot.com"
+    "project_number": "354740616900",
+    "project_id": "proyecto-final-b2c0f",
+    "storage_bucket": "proyecto-final-b2c0f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:155678999942:android:64c12d06a2b84753915807",
+        "mobilesdk_app_id": "1:354740616900:android:343a16cbe1b7a58a1bd391",
         "android_client_info": {
           "package_name": "com.example.lbooks_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "155678999942-n3b1t7d37unogs69jbf990d4tjq2t82t.apps.googleusercontent.com",
+          "client_id": "354740616900-eh77bnphpcac3gs4i71p9rrnichlshnk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lbooks_app",
+            "certificate_hash": "853ff34f4cc024203a9ff04a8abb0326c6380313"
+          }
+        },
+        {
+          "client_id": "354740616900-4ov80lsnphrsvtusislnkdea7d98rcrn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA6nIqwCie6FooIfiDASn9CjpesNuKRTzw"
+          "current_key": "AIzaSyDhg8LBOIB6Ygav3uTMlEicZnS4UWHbIc4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "155678999942-n3b1t7d37unogs69jbf990d4tjq2t82t.apps.googleusercontent.com",
+              "client_id": "354740616900-4ov80lsnphrsvtusislnkdea7d98rcrn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

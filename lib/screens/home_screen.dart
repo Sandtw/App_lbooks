@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:lbooks_app/providers/books_provider.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +9,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final foto = ModalRoute.of(context)!.settings.arguments as String;
+    // final foto = ModalRoute.of(context)!.settings.arguments as String;
+    // FileImage(
+    //                     File(foto),
+    //                   ),
     final booksProvider = Provider.of<BooksProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
@@ -68,15 +69,13 @@ class HomeScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   bottom: 30,
                   child: SizedBox(
                     height: 100,
                     width: 100,
                     child: CircleAvatar(
-                      backgroundImage: FileImage(
-                        File(foto),
-                      ),
+                      backgroundImage: AssetImage('assets/imgs/books.png'),
                     ),
                   ),
                 )

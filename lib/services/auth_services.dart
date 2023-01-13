@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+
 import 'package:lbooks_app/models/user_model.dart';
 
 class AuthService {
