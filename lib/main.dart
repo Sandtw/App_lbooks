@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
     // final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       title: 'Book reading',
-      initialRoute: SplashScreen.route,
+      initialRoute: Wrapper.route,
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const Wrapper(),
+        Wrapper.route: (context) => const Wrapper(),
         SplashScreen.route: (_) => const SplashScreen(),
         WelcomeScreen.route: (_) => const WelcomeScreen(),
         LoginScreen.route: (_) => const LoginScreen(),

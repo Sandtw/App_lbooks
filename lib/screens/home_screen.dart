@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lbooks_app/providers/books_provider.dart';
+import 'package:lbooks_app/screens/screens.dart';
 import 'package:provider/provider.dart';
 import 'package:lbooks_app/widgets/books_slider.dart';
 
@@ -31,8 +32,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Icon(
-                Icons.lock_rounded,
+              IconButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, LoginScreen.route);
+                },
+                icon: const Icon(Icons.lock_rounded),
                 color: Colors.black,
               ),
             ],
@@ -44,7 +48,7 @@ class HomeScreen extends StatelessWidget {
               width: 210,
               height: 25,
               decoration: BoxDecoration(
-                  color: Color(0xffFAC54C).withOpacity(0.6),
+                  color: const Color(0xffFAC54C).withOpacity(0.6),
                   borderRadius: BorderRadius.circular(10)),
               child: const Text(
                 'Bienvenido Javier!',

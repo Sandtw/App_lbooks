@@ -6,6 +6,7 @@ import 'screens/screens.dart';
 import 'services/auth_services.dart';
 
 class Wrapper extends StatelessWidget {
+  static const String route = 'Wrapper';
   const Wrapper({super.key});
 
   @override
