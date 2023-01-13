@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:lbooks_app/providers/books_provider.dart';
+import 'package:lbooks_app/screens/screens.dart';
 import 'package:provider/provider.dart';
 import 'package:lbooks_app/widgets/books_slider.dart';
 
@@ -11,7 +10,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final foto = ModalRoute.of(context)!.settings.arguments as String;
+    // final foto = ModalRoute.of(context)!.settings.arguments as String;
+    // FileImage(
+    //                     File(foto),
+    //                   ),
     final booksProvider = Provider.of<BooksProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
@@ -30,8 +32,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Icon(
-                Icons.lock_rounded,
+              IconButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, LoginScreen.route);
+                },
+                icon: const Icon(Icons.lock_rounded),
                 color: Colors.black,
               ),
             ],
@@ -43,7 +48,7 @@ class HomeScreen extends StatelessWidget {
               width: 210,
               height: 25,
               decoration: BoxDecoration(
-                  color: Color(0xffFAC54C).withOpacity(0.6),
+                  color: const Color(0xffFAC54C).withOpacity(0.6),
                   borderRadius: BorderRadius.circular(10)),
               child: const Text(
                 'Bienvenido Javier!',
@@ -68,15 +73,13 @@ class HomeScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   bottom: 30,
                   child: SizedBox(
                     height: 100,
                     width: 100,
                     child: CircleAvatar(
-                      backgroundImage: FileImage(
-                        File(foto),
-                      ),
+                      backgroundImage: AssetImage('assets/imgs/books.png'),
                     ),
                   ),
                 )

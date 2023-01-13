@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lbooks_app/screens/screens.dart';
+import 'package:lbooks_app/services/auth_services.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String route = 'login';
@@ -14,6 +16,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
+    final authService = Provider.of<AuthService>(context);
     var textStyle =
         TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.45));
     return Scaffold(
@@ -45,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.white,
                 ),
                 child: TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -61,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.white,
                 ),
                 child: TextFormField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -98,6 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                 child: TextButton(
                   onPressed: () {
+                    authService.signInWithEmailAndPassword(
+                        emailController.text, passwordController.text);
                     Navigator.pushReplacementNamed(context, HomeScreen.route);
                   },
                   child: Text(
