@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
               width: 210,
               height: 25,
               decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5),
+                  color: Color(0xffFAC54C).withOpacity(0.6),
                   borderRadius: BorderRadius.circular(10)),
               child: const Text(
                 'Bienvenido Javier!',
@@ -61,9 +61,12 @@ class HomeScreen extends StatelessWidget {
               alignment: Alignment.center,
               fit: StackFit.passthrough,
               children: [
-                Image.asset(
-                  'assets/imgs/overlay.png',
-                  fit: BoxFit.cover,
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Image.asset(
+                    'assets/imgs/overlay.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Positioned(
                   bottom: 30,
@@ -84,7 +87,7 @@ class HomeScreen extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 const SizedBox(
-                  height: 10,
+                  height: 25,
                 ),
                 BookSlider(
                   books: booksProvider.thrillerBooks,

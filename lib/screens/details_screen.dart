@@ -31,8 +31,12 @@ class _CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle titleStyle = TextStyle(fontSize: 20, color: Color.fromARGB(255, 78, 10, 10));
+    final TextStyle subtitleStyle = TextStyle(fontSize: 22, color: Color.fromARGB(255, 123, 120, 120));
+
     return SliverAppBar(
-      expandedHeight: 200,
+      backgroundColor:  const Color(0xffFAC54C),
+      expandedHeight: 400,
       floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
@@ -49,12 +53,71 @@ class _CustomAppBar extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        background: FadeInImage(
-          placeholder: const AssetImage('assets/imgs/loading.gif'),
-          image: NetworkImage(book.volumeInfo!.imageLinks!.smallThumbnail!),
-          fit: BoxFit.cover,
+        background: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: const Image(
+                image: AssetImage('assets/imgs/overlay.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 110, left: 110, right: 110, bottom: 30),
+                  child: FadeInImage(
+                    placeholder: const AssetImage('assets/imgs/loading.gif'),
+                    image: NetworkImage(book.volumeInfo!.imageLinks!.smallThumbnail!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Páginas', style: titleStyle,),
+                          Text('${book.volumeInfo!.pageCount!}', style: subtitleStyle )
+                        ]
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Fecha de Publicación', style: titleStyle,),
+                          Text('${book.volumeInfo!.publishedDate!}', style: subtitleStyle )
+                        ]
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Lenguaje', style: titleStyle,),
+                          Text('${book.volumeInfo!.language!}', style: subtitleStyle )
+                        ]
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
         ),
       ),
+      actions: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: GestureDetector(
+            child: Icon(Icons.download),
+            onTap: (){},
+          )
+        )
+      ],
     );
   }
 }
@@ -143,3 +206,5 @@ class _Overview extends StatelessWidget {
     );
   }
 }
+
+
