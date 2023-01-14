@@ -3,8 +3,7 @@ import 'package:lbooks_app/providers/books_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BookSearchDelegate extends SearchDelegate{
-
+class BookSearchDelegate extends SearchDelegate {
   @override
   String? get searchFieldLabel => "Buscar libro";
 
@@ -21,38 +20,36 @@ class BookSearchDelegate extends SearchDelegate{
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      onPressed: () => close(context, null), 
-      icon: const Icon(Icons.arrow_back)
-    );
+        onPressed: () => close(context, null),
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text('buildResults');
+    return const Text('buildResults');
   }
 
-  Widget _emptyContainer(){
-    return Container(
-        child: const Center(
-          child: Icon(Icons.movie_creation_outlined, color: Colors.black38, size: 130),
-        ),
-      );
+  Widget _emptyContainer() {
+    return const Center(
+      child:
+          Icon(Icons.movie_creation_outlined, color: Colors.black38, size: 130),
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if(query.isEmpty){
+    if (query.isEmpty) {
       return _emptyContainer();
     }
 
-    final booksProvider = Provider.of<BooksProvider>(context, listen:false);
+    final booksProvider = Provider.of<BooksProvider>(context, listen: false);
     booksProvider.getSuggestionsByQuery(query);
 
     return StreamBuilder(
       stream: booksProvider.suggestionStream,
-      builder: (_, AsyncSnapshot<List<Book?>?> snapshot){
-        if(!snapshot.hasData) return _emptyContainer();
-        
+      builder: (_, AsyncSnapshot<List<Book?>?> snapshot) {
+        if (!snapshot.hasData) return _emptyContainer();
+
         final books = snapshot.data!;
         return ListView.builder(
           itemCount: books.length,
@@ -63,7 +60,7 @@ class BookSearchDelegate extends SearchDelegate{
   }
 }
 
-  class _BookItem extends StatelessWidget {
+class _BookItem extends StatelessWidget {
   final Book? book;
   const _BookItem({Key? key, required this.book}) : super(key: key);
 
@@ -79,17 +76,14 @@ class BookSearchDelegate extends SearchDelegate{
       ),
       title: Text(book!.volumeInfo!.title!),
       subtitle: Text(
-                'por ${book!.volumeInfo!.authors!.join(", ")}',
-                style: textTheme.subtitle1,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
+        'por ${book!.volumeInfo!.authors!.join(", ")}',
+        style: textTheme.subtitle1,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+      ),
       onTap: () {
         Navigator.pushNamed(context, 'details', arguments: book);
       },
     );
   }
-
 }
-
-

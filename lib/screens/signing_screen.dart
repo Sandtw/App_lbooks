@@ -4,6 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lbooks_app/screens/screens.dart';
+import 'package:provider/provider.dart';
+
+import '../services/auth_services.dart';
 
 class SignInScreen extends StatelessWidget {
   static const String route = 'sign';
@@ -11,12 +14,13 @@ class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     var textStyle =
         TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.45));
     final name = TextEditingController();
     final email = TextEditingController();
-    final foto = TextEditingController();
     final telefono = TextEditingController();
+    final password = TextEditingController();
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
       body: SingleChildScrollView(
@@ -121,6 +125,7 @@ class SignInScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: TextFormField(
+                  controller: password,
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -142,7 +147,9 @@ class SignInScreen extends StatelessWidget {
                     color: const Color(0xffFAC54C)),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, HomeScreen.route);
+                    authService.createUserWithEmailandPassword(
+                        email.text, password.text);
+                    Navigator.pushReplacementNamed(context, LoginScreen.route);
                   },
                   child: Text(
                     'Registrarme',

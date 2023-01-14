@@ -113,7 +113,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             content: const Text('Credenciales incorrectas'),
                             actions: [
                               TextButton(
-                                child: const Text('OK'),
+                                child: const Text(
+                                  'OK',
+                                  style: TextStyle(color: Color(0xffFAC54C)),
+                                ),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },

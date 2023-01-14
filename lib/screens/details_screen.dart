@@ -79,42 +79,35 @@ class _CustomAppBar extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Páginas',
-                              style: titleStyle,
-                            ),
-                            Text('${book.volumeInfo!.pageCount!}',
-                                style: subtitleStyle)
-                          ]),
-                    ),
-                    Container(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Fecha de Publicación',
-                              style: titleStyle,
-                            ),
-                            Text('${book.volumeInfo!.publishedDate!}',
-                                style: subtitleStyle)
-                          ]),
-                    ),
-                    Container(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Lenguaje',
-                              style: titleStyle,
-                            ),
-                            Text('${book.volumeInfo!.language!}',
-                                style: subtitleStyle)
-                          ]),
-                    ),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Páginas',
+                            style: titleStyle,
+                          ),
+                          Text('${book.volumeInfo!.pageCount!}',
+                              style: subtitleStyle)
+                        ]),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Fecha de Publicación',
+                            style: titleStyle,
+                          ),
+                          Text(book.volumeInfo!.publishedDate!,
+                              style: subtitleStyle)
+                        ]),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Lenguaje',
+                            style: titleStyle,
+                          ),
+                          Text(book.volumeInfo!.language!, style: subtitleStyle)
+                        ]),
                   ],
                 )
               ],
@@ -124,9 +117,9 @@ class _CustomAppBar extends StatelessWidget {
       ),
       actions: [
         Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: GestureDetector(
-              child: Icon(Icons.download),
+              child: const Icon(Icons.download),
               onTap: () {},
             ))
       ],

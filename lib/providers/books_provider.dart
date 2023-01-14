@@ -18,7 +18,7 @@ class BooksProvider extends ChangeNotifier {
 
   final debouncer = Debouncer(duration: const Duration(milliseconds: 500));
   final StreamController<List<Book?>?> _suggestionStreamController =
-      new StreamController.broadcast();
+      StreamController.broadcast();
   Stream<List<Book?>?> get suggestionStream =>
       _suggestionStreamController.stream;
 
@@ -91,7 +91,6 @@ class BooksProvider extends ChangeNotifier {
 
     final response = await http.get(url);
     final searchResponse = SearchResponse.fromJson(response.body);
-    print(searchResponse.books);
     return searchResponse.books;
   }
 
@@ -99,14 +98,15 @@ class BooksProvider extends ChangeNotifier {
     debouncer.value = '';
     // Asincrono, porque es donde se va llamar eventualmente el searchMovies
     debouncer.onValue = (value) async {
-      final results = await this.searchBooks(value);
-      this._suggestionStreamController.add(results);
+      final results = await searchBooks(value);
+      _suggestionStreamController.add(results);
     };
 
-    final timer = Timer.periodic(Duration(milliseconds: 300), (_) {
+    final timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
       debouncer.value = searchTerm;
     });
 
-    Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
+    Future.delayed(const Duration(milliseconds: 301))
+        .then((_) => timer.cancel());
   }
 }
