@@ -105,10 +105,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     // ),
                     ),
                 child: TextButton(
-                  onPressed: () {
-                    authService.signInWithEmailAndPassword(
-                        emailController.text, passwordController.text);
-                    Navigator.pushReplacementNamed(context, HomeScreen.route);
+                  onPressed: () async {
+                    try {
+                      await authService.signInWithEmailAndPassword(
+                          emailController.text, passwordController.text);
+                      Navigator.pushReplacementNamed(context, HomeScreen.route);
+                    } catch (e) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Error'),
+                              content: Text('Credenciales incorrectas'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('OK'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    }
                   },
                   child: Text(
                     'Ingresar',
