@@ -4,6 +4,7 @@ import 'package:lbooks_app/screens/screens.dart';
 import 'package:provider/provider.dart';
 import 'package:lbooks_app/widgets/books_slider.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
+import 'package:lbooks_app/search/search_delegate.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String route = 'home';
@@ -97,9 +98,13 @@ class _MyHeaderHome extends SliverPersistentHeaderDelegate {
             right: 40,
             top: 50,
             child: IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
+                  onPressed: () => showSearch(context: context, delegate: BookSearchDelegate()),
+                  icon: const Icon(
+                    Icons.search,
+                    size: 30,
+                    color: Colors.black,
+                  ),
+                ),
           ),
         ],
       ),
