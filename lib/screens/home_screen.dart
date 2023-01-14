@@ -6,6 +6,8 @@ import 'package:lbooks_app/widgets/books_slider.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:lbooks_app/search/search_delegate.dart';
 
+import '../services/auth_services.dart';
+
 class HomeScreen extends StatelessWidget {
   static const String route = 'home';
   const HomeScreen({Key? key}) : super(key: key);
@@ -46,6 +48,7 @@ class _MyHeaderHome extends SliverPersistentHeaderDelegate {
     final percent = shrinkOffset / _maxHeaderExtent;
     final currentSizeImage =
         (_maxImageSize * (1 - percent)).clamp(_minImageSize, _maxImageSize);
+    final authService = Provider.of<AuthService>(context);
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xffFAC54C),
@@ -91,20 +94,24 @@ class _MyHeaderHome extends SliverPersistentHeaderDelegate {
             top: 50,
             child: IconButton(
               icon: const Icon(Icons.logout),
-              onPressed: () {},
+              onPressed: () {
+                authService.signOut();
+                Navigator.pushReplacementNamed(context, WelcomeScreen.route);
+              },
             ),
           ),
           Positioned(
             right: 40,
             top: 50,
             child: IconButton(
-                  onPressed: () => showSearch(context: context, delegate: BookSearchDelegate()),
-                  icon: const Icon(
-                    Icons.search,
-                    size: 30,
-                    color: Colors.black,
-                  ),
-                ),
+              onPressed: () =>
+                  showSearch(context: context, delegate: BookSearchDelegate()),
+              icon: const Icon(
+                Icons.search,
+                size: 30,
+                color: Colors.black,
+              ),
+            ),
           ),
         ],
       ),

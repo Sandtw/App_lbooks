@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,9 +11,12 @@ class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    String path = '';
     var textStyle =
         TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.45));
+    final name = TextEditingController();
+    final email = TextEditingController();
+    final foto = TextEditingController();
+    final telefono = TextEditingController();
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
       body: SingleChildScrollView(
@@ -42,24 +46,69 @@ class SignInScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: TextFormField(
+                  controller: name,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Ingrese su nombre',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                ),
+                child: TextFormField(
+                  controller: telefono,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Telefono',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                ),
+                child: TextFormField(
+                  controller: email,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () async {
+                        String nom = name.text;
+                        String correo = email.text;
+                        String celular = telefono.text;
                         final picker = ImagePicker();
                         final XFile? pickedFile = await picker.pickImage(
                           source: ImageSource.camera,
                           imageQuality: 100,
                         );
                         if (pickedFile == null) return;
-                        path = pickedFile.path;
+
+                        FirebaseFirestore.instance
+                            .collection("user")
+                            .doc("9oGRHjPL6dFtX106w5MC")
+                            .update({
+                          "correo": correo,
+                          "foto": pickedFile.path,
+                          "nombre": nom,
+                          "telefono": celular,
+                        });
                       },
                       icon: const Icon(
                         Icons.photo,
                         color: Color(0xffFAC54C),
                       ),
                     ),
-                    hintText: ' usuario@gmail.com',
+                    hintText: 'Usuario@gmail.com',
                   ),
                 ),
               ),
@@ -75,7 +124,7 @@ class SignInScreen extends StatelessWidget {
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: ' **************',
+                    hintText: '**************',
                   ),
                 ),
               ),
@@ -90,18 +139,10 @@ class SignInScreen extends StatelessWidget {
                 height: 70,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xffFAC54C)
-                    // gradient: const LinearGradient(
-                    //   colors: [
-                    //     Color.fromARGB(255, 209, 211, 47),
-                    //     Color.fromARGB(221, 152, 114, 10),
-                    //   ],
-                    // ),
-                    ),
+                    color: const Color(0xffFAC54C)),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, HomeScreen.route,
-                        arguments: path);
+                    Navigator.pushReplacementNamed(context, HomeScreen.route);
                   },
                   child: Text(
                     'Registrarme',
