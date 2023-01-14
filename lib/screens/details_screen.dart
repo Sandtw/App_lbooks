@@ -31,11 +31,13 @@ class _CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle titleStyle = TextStyle(fontSize: 20, color: Color.fromARGB(255, 78, 10, 10));
-    final TextStyle subtitleStyle = TextStyle(fontSize: 22, color: Color.fromARGB(255, 123, 120, 120));
+    const TextStyle titleStyle =
+        TextStyle(fontSize: 20, color: Color.fromARGB(255, 78, 10, 10));
+    const TextStyle subtitleStyle =
+        TextStyle(fontSize: 22, color: Color.fromARGB(255, 123, 120, 120));
 
     return SliverAppBar(
-      backgroundColor:  const Color(0xffFAC54C),
+      backgroundColor: const Color(0xffFAC54C),
       expandedHeight: 400,
       floating: false,
       pinned: true,
@@ -65,10 +67,12 @@ class _CustomAppBar extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 110, left: 110, right: 110, bottom: 30),
+                  padding: const EdgeInsets.only(
+                      top: 110, left: 110, right: 110, bottom: 30),
                   child: FadeInImage(
                     placeholder: const AssetImage('assets/imgs/loading.gif'),
-                    image: NetworkImage(book.volumeInfo!.imageLinks!.smallThumbnail!),
+                    image: NetworkImage(
+                        book.volumeInfo!.imageLinks!.smallThumbnail!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -77,30 +81,39 @@ class _CustomAppBar extends StatelessWidget {
                   children: [
                     Container(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Páginas', style: titleStyle,),
-                          Text('${book.volumeInfo!.pageCount!}', style: subtitleStyle )
-                        ]
-                      ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Páginas',
+                              style: titleStyle,
+                            ),
+                            Text('${book.volumeInfo!.pageCount!}',
+                                style: subtitleStyle)
+                          ]),
                     ),
                     Container(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Fecha de Publicación', style: titleStyle,),
-                          Text('${book.volumeInfo!.publishedDate!}', style: subtitleStyle )
-                        ]
-                      ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Fecha de Publicación',
+                              style: titleStyle,
+                            ),
+                            Text('${book.volumeInfo!.publishedDate!}',
+                                style: subtitleStyle)
+                          ]),
                     ),
                     Container(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Lenguaje', style: titleStyle,),
-                          Text('${book.volumeInfo!.language!}', style: subtitleStyle )
-                        ]
-                      ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Lenguaje',
+                              style: titleStyle,
+                            ),
+                            Text('${book.volumeInfo!.language!}',
+                                style: subtitleStyle)
+                          ]),
                     ),
                   ],
                 )
@@ -111,12 +124,11 @@ class _CustomAppBar extends StatelessWidget {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: GestureDetector(
-            child: Icon(Icons.download),
-            onTap: (){},
-          )
-        )
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: GestureDetector(
+              child: Icon(Icons.download),
+              onTap: () {},
+            ))
       ],
     );
   }
@@ -206,5 +218,3 @@ class _Overview extends StatelessWidget {
     );
   }
 }
-
-
