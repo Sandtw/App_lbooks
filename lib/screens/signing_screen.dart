@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lbooks_app/screens/screens.dart';
+import 'package:provider/provider.dart';
+
+import '../services/auth_services.dart';
 
 class SignInScreen extends StatelessWidget {
   static const String route = 'sign';
@@ -10,9 +14,13 @@ class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    String path = '';
+    final authService = Provider.of<AuthService>(context);
     var textStyle =
         TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.45));
+    final name = TextEditingController();
+    final email = TextEditingController();
+    final telefono = TextEditingController();
+    final password = TextEditingController();
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
       body: SingleChildScrollView(
@@ -42,24 +50,10 @@ class SignInScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: () async {
-                        final picker = ImagePicker();
-                        final XFile? pickedFile = await picker.pickImage(
-                          source: ImageSource.camera,
-                          imageQuality: 100,
-                        );
-                        if (pickedFile == null) return;
-                        path = pickedFile.path;
-                      },
-                      icon: const Icon(
-                        Icons.photo,
-                        color: Color(0xffFAC54C),
-                      ),
-                    ),
-                    hintText: ' usuario@gmail.com',
+                  controller: name,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Ingrese su nombre',
                   ),
                 ),
               ),
@@ -72,10 +66,70 @@ class SignInScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: TextFormField(
+                  controller: telefono,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Telefono',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                ),
+                child: TextFormField(
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () async {
+                        String nom = name.text;
+                        String correo = email.text;
+                        String celular = telefono.text;
+                        final picker = ImagePicker();
+                        final XFile? pickedFile = await picker.pickImage(
+                          source: ImageSource.camera,
+                          imageQuality: 100,
+                        );
+                        if (pickedFile == null) return;
+
+                        FirebaseFirestore.instance
+                            .collection("user")
+                            .doc("9oGRHjPL6dFtX106w5MC")
+                            .update({
+                          "correo": correo,
+                          "foto": pickedFile.path,
+                          "nombre": nom,
+                          "telefono": celular,
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.photo,
+                        color: Color(0xffFAC54C),
+                      ),
+                    ),
+                    hintText: 'Usuario@gmail.com',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                ),
+                child: TextFormField(
+                  controller: password,
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: ' **************',
+                    hintText: '**************',
                   ),
                 ),
               ),
@@ -90,18 +144,12 @@ class SignInScreen extends StatelessWidget {
                 height: 70,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xffFAC54C)
-                    // gradient: const LinearGradient(
-                    //   colors: [
-                    //     Color.fromARGB(255, 209, 211, 47),
-                    //     Color.fromARGB(221, 152, 114, 10),
-                    //   ],
-                    // ),
-                    ),
+                    color: const Color(0xffFAC54C)),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, HomeScreen.route,
-                        arguments: path);
+                    authService.createUserWithEmailandPassword(
+                        email.text, password.text);
+                    Navigator.pushReplacementNamed(context, LoginScreen.route);
                   },
                   child: Text(
                     'Registrarme',

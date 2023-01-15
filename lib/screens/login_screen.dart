@@ -96,37 +96,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 70,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xffFAC54C)
-                    // gradient: const LinearGradient(
-                    //   colors: [
-                    //     Color.fromARGB(255, 209, 211, 47),
-                    //     Color.fromARGB(221, 152, 114, 10),
-                    //   ],
-                    // ),
-                    ),
+                    color: const Color(0xffFAC54C)),
                 child: TextButton(
                   onPressed: () async {
                     try {
                       await authService.signInWithEmailAndPassword(
                           emailController.text, passwordController.text);
+                      // ignore: use_build_context_synchronously
                       Navigator.pushReplacementNamed(context, HomeScreen.route);
                     } catch (e) {
                       showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Error'),
-                              content: Text('Credenciales incorrectas'),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                )
-                              ],
-                            );
-                          });
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Error'),
+                            content: const Text('Credenciales incorrectas'),
+                            actions: [
+                              TextButton(
+                                child: const Text(
+                                  'OK',
+                                  style: TextStyle(color: Color(0xffFAC54C)),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ],
+                          );
+                        },
+                      );
                     }
                   },
                   child: Text(
