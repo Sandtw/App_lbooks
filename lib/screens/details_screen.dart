@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lbooks_app/models/models.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:io';
 class DetailsScreen extends StatelessWidget {
   static const String route = 'details';
   const DetailsScreen({Key? key}) : super(key: key);
@@ -35,6 +38,60 @@ class _CustomAppBar extends StatelessWidget {
         TextStyle(fontSize: 20, color: Color.fromARGB(255, 78, 10, 10));
     const TextStyle subtitleStyle =
         TextStyle(fontSize: 22, color: Color.fromARGB(255, 123, 120, 120));
+
+    final List<Epub> listAvailables = [
+      book.accessInfo!.epub!,
+      book.accessInfo!.pdf!
+    ];
+
+    Future<String> downloadFile(String url, String fileName) async {
+      // url: URL de petición del archivo a descargar
+      // fileName: Nombre del archivo a guardarse
+      // dir: Directorio del movil donde se guardara
+      HttpClient httpClient = HttpClient();
+      File file;
+      String filePath = '';
+
+      try {
+        final dir = await getExternalStorageDirectory();
+        var request = await httpClient.getUrl(Uri.parse(url));
+        var response = await request.close();
+        if (response.statusCode == 200) {
+          var bytes = await consolidateHttpClientResponseBytes(response);
+          filePath = '${dir!.path}/$fileName';
+          file = File(filePath);
+          await file.writeAsBytes(bytes);
+        } else
+          filePath = 'Error code: ' + response.statusCode.toString();
+      } catch (ex) {
+        filePath = 'Can not fetch url';
+      }
+
+      return filePath;
+    }
+
+
+    Widget setButtonSearch(Book book) {
+      for (Epub format in listAvailables) {
+        if ([false, null].contains(format.isAvailable)) {
+          continue;
+        } else {
+          return GestureDetector(
+            child: Icon(Icons.download),
+            onTap: () {
+              //await launchUrl(Uri.parse(format.acsTokenLink!));
+              downloadFile(format.acsTokenLink!, book.volumeInfo!.title! + '.pdf').then((value) => print(value));
+
+            },
+          );
+        }
+      }
+      return Icon(
+        Icons.dangerous_outlined,
+        color: Colors.red[900],
+      );
+    }
+
 
     return SliverAppBar(
       backgroundColor: const Color(0xffFAC54C),
@@ -118,10 +175,8 @@ class _CustomAppBar extends StatelessWidget {
       actions: [
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: GestureDetector(
-              child: const Icon(Icons.download),
-              onTap: () {},
-            ))
+            child: setButtonSearch(book)
+        )
       ],
     );
   }
